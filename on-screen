@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nicolas Clicker Collector</title>
+</head>
+<body>
+
+<h1>Nicolas Clicker Collector</h1>
+
+<p>Collect as many Nicolas as you can!</p>
+
+<button onclick="collectNicolas()">Collect Nicolas</button>
+
+<p>Nicolas collected: <span id="nicolas">0</span></p>
+
+<script>
+var nicolas = 0;
+
+function collectNicolas() {
+  nicolas++;
+  document.getElementById("nicolas").innerHTML = nicolas;
+}
+</script>
+
+</body>
+</html>
