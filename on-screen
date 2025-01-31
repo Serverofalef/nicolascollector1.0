@@ -1,26 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Nicolas Clicker Collector</title>
+  <title>Clicker Game</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    #clicker {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #stats {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Nicolas Clicker Collector</h1>
+  <h1>Clicker Game</h1>
 
-<p>Collect as many Nicolas as you can!</p>
+  <div id="clicker"></div>
 
-<button onclick="collectNicolas()">Collect Nicolas</button>
+  <div id="stats">
+    <p>Clicks: <span id="clicks">0</span></p>
+    <p>Money: <span id="money">0</span></p>
+  </div>
 
-<p>Nicolas collected: <span id="nicolas">0</span></p>
+  <script>
+    let clicks = 0;
+    let money = 0;
+    let clickValue = 1;
 
-<script>
-var nicolas = 0;
+    const clicker = document.getElementById('clicker');
+    const clicksSpan = document.getElementById('clicks');
+    const moneySpan = document.getElementById('money');
 
-function collectNicolas() {
-  nicolas++;
-  document.getElementById("nicolas").innerHTML = nicolas;
-}
-</script>
+    clicker.addEventListener('click', () => {
+      clicks++;
+      clicksSpan.textContent = clicks;
+      money += clickValue;
+      moneySpan.textContent = money;
+    });
+
+    // Upgrade button
+    const upgradeButton = document.createElement('button');
+    upgradeButton.textContent = 'Upgrade Clicker';
+    upgradeButton.addEventListener('click', () => {
+      if (money >= 10) {
+        money -= 10;
+        moneySpan.textContent = money;
+        clickValue++;
+      }
+    });
+
+    document.body.appendChild(upgradeButton);
+
+    // Code input
+    const codeInput = document.createElement('input');
+    codeInput.type = 'text';
+    codeInput.placeholder = 'Enter code here';
+
+    const applyCodeButton = document.createElement('button');
+    applyCodeButton.textContent = 'Apply Code';
+    applyCodeButton.addEventListener('click', () => {
+      const code = codeInput.value;
+      if (code === 'DOUBLE_MONEY') {
+        money *= 2;
+        moneySpan.textContent = money;
+      } else if (code === 'FREE_UPGRADE') {
+        if (money < 10) {
+          money += 10;
+          moneySpan.textContent = money;
+        }
+        clickValue++;
+      }
+    });
+
+    document.body.appendChild(codeInput);
+    document.body.appendChild(applyCodeButton);
+  </script>
 
 </body>
 </html>
